@@ -10,9 +10,9 @@ class Journey
     @complete = false
   end
 
-  def start(entry_station)
-    @entry_station = entry_station
-  end
+  # def start(entry_station)
+  #   @entry_station = entry_station
+  # end
 
   def finish(exit_station)
     @exit_station = exit_station
@@ -20,11 +20,11 @@ class Journey
   end
 
   def fare
-    complete? ? Oystercard::MINIMUM_BALANCE : PENALTY_FARE
+    complete? ? Oystercard::MINIMUM_CHARGE : PENALTY_FARE
   end
 
   def complete?
-    !!(exit_station)
+    !!(exit_station) && !!(entry_station)
   end
 
 end

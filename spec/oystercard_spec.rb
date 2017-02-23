@@ -82,6 +82,18 @@ it 'stores a journey' do
   expect(subject.journeys).to include journey
 end
 
+it "deducts penalty fare when we don't touch in but only touch out" do
+  subject.top_up(10)
+  expect{ subject.touch_out("ae") }.to change{ subject.balance }.by(-Journey::PENALTY_FARE)
+end
+
+it "deducs penalty fare when we touch_in but don't touch_out" do
+  subject.top_up(50)
+  subject.touch_in("ae")
+  expect{ subject.touch_in("ae") }.to change{ subject.balance }.by(-Journey::PENALTY_FARE)
+  expect{ subject.touch_out("wc")}.to change{subject.balance}.by (-Oystercard::MINIMUM_CHARGE)
+end
+
 end
 
 #
