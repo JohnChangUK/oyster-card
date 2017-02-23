@@ -54,32 +54,21 @@
 
   let(:station){ double :station }
 
-  it 'stores the entry station' do
-    subject.top_up(10)
-  subject.touch_in(station)
-  expect(subject.entry_station).to eq station
-  end
-
   let(:entry_station) { double :station }
   let(:exit_station) { double :station }
 
-it 'stores exit station' do
-  subject.top_up(10)
-  subject.touch_in(entry_station)
-  subject.touch_out(exit_station)
-  expect(subject.exit_station).to eq exit_station
-end
 
 it 'has an empty list of journeys by default' do
   expect(subject.journeys).to be_empty
 end
-let(:journey){ {entry_station: entry_station, exit_station: exit_station} }
+let(:journey){ double(:journey) }
 
 it 'stores a journey' do
   subject.top_up(10)
   subject.touch_in(entry_station)
   subject.touch_out(exit_station)
-  expect(subject.journeys).to include journey
+  expect(subject.journeys.last.exit_station).to eq exit_station
+  expect(subject.journeys.last.entry_station).to eq entry_station
 end
 
 it "deducts penalty fare when we don't touch in but only touch out" do
