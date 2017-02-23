@@ -1,18 +1,13 @@
 require 'station'
-
 describe Station do
-  let(:name) { "name" }
-  let(:zone) { 2 }
-  subject(:station) { described_class.new(name, zone) }
 
-  context 'When initializing Station' do
-    it 'it provides a Station #name' do
-      expect(station.name).to eq(name)
-    end
+  subject {described_class.new(name: "Old Street", zone: 1)}
 
-    it 'it provides a Station #zone' do
-      expect(station.zone).to eq(zone)
-    end
+  it 'knows its name' do
+    expect(subject.name).to eq("Old Street")
   end
 
+  it 'knows its zone' do
+    expect(subject.zone).to eq(1)
+  end
 end

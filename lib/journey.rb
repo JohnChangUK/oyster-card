@@ -1,30 +1,30 @@
+require 'oystercard'
+
 class Journey
-  attr_reader :entry_station, :exit_station
-  MINIMUM_FARE = 2.50
+
+  attr_reader :entry_station, :exit_station, :complete
   PENALTY_FARE = 6
 
+  def initialize(station = {})
+    @entry_station = station[:entry_station]
+    @complete = false
+  end
 
-  def start_journey(entry_station)
-    # @journey = {}
+  def start(entry_station)
     @entry_station = entry_station
   end
 
-  def end_journey(exit_station)
+  def finish(exit_station)
     @exit_station = exit_station
+    self
   end
 
   def fare
-    if @entry_station == nil || @exit_station == nil
-      PENALTY_FARE
-    else
-      MINIMUM_FARE
-    end
+    complete? ? Oystercard::MINIMUM_BALANCE : PENALTY_FARE
   end
 
-  def in_journey?
-    return false if @entry_station == nil && @exit_station == nil
-    return false if @entry_station && @exit_station
-    return true if @entry_station && @exit_station == nil
-    false
+  def complete?
+    !!(exit_station)
   end
+
 end
