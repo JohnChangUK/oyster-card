@@ -1,3 +1,5 @@
+require_relative 'journey'
+
 class Oystercard
 
   attr_reader :balance, :journeys, :journey
@@ -25,11 +27,12 @@ class Oystercard
   end
 
   def touch_out(exit_station)
-    @in_journey = false
     @journey ||= Journey.new(entry_station: nil)
     @journey.finish(exit_station)
     deduct(journey.fare)
-    @journeys << journey
+    @journeys << journey #unless journeys.include?(journey)
+    @in_journey = false
+
   end
 
   def in_journey?
