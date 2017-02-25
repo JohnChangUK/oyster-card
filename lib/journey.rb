@@ -1,4 +1,5 @@
 require_relative 'oystercard'
+require_relative 'journeylog'
 class Journey
 
   attr_reader :entry_station, :exit_station, :complete
@@ -6,7 +7,7 @@ class Journey
 
   def initialize(station = {})
     @entry_station = station[:entry_station]
-    @complete = false
+    #@complete = false
   end
 
   def finish(exit_station)
@@ -21,5 +22,10 @@ class Journey
   def complete?
     !!(exit_station) && !!(entry_station)
   end
+
+  def start(station)
+    @entry_station = entry_station
+  end
+
 
 end
